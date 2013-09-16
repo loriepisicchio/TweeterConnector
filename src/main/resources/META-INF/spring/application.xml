@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:vdb="http://central.motwin.net/schema/virtualdb" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:cm="http://www.springframework.org/schema/osgi-compendium"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://central.motwin.net/schema/virtualdb http://central.motwin.net/schema/virtualdb.xsd
+						http://www.springframework.org/schema/osgi-compendium http://www.springframework.org/schema/osgi-compendium/spring-osgi-compendium-1.2.xsd
+            			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<import resource="classpath:META-INF/motwin/streamdata.xml" />
+
+	<cm:cm-properties id="environmentProperties"
+		persistent-id="twitter4j" />
+
+	<context:property-placeholder
+		properties-ref="environmentProperties" />
+ 
+	<vdb:virtualdb id="TwitterConnectorDb">
+		<vdb:table name="Tweets">
+			<vdb:schema>
+				<vdb:column name="id" type="long" part-of-key="true" />
+				<vdb:column name="date" type="long" />
+				<vdb:column name="text" type="string" />
+				<vdb:column name="source" type="string" />
+				<vdb:column name="userScreenName" type="string" />
+			</vdb:schema>
+			<vdb:source name="twitterSource" />
+		</vdb:table>
+	</vdb:virtualdb>
+
+	<bean id="twitterSource" class="com.motwin.sample.twitter.TwitterSource">
+		<constructor-arg name="aConsumerKey" value="${oauth.consumerKey}" />
+		<constructor-arg name="aConsumerSecret" value="${oauth.consumerSecret}" />
+		<constructor-arg name="anAccessToken" value="${oauth.accessToken}" />
+		<constructor-arg name="anAccessTokenSecret" value="${oauth.accessTokenSecret}" />
+	</bean>
+
+</beans>

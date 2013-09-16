@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: TwitterConnector
+Bundle-Version: 1.0.0.BUILD-SNAPSHOT
+Bundle-SymbolicName: TwitterConnector
+Import-Library: com.motwin.sdk;version="[3.2.0,3.3.0)",
+ org.springframework.spring;version="[3.1.0,3.2.0)"
+Spring-Context: META-INF/spring/*.xml;wait-for-dependencies:=true;
+Import-Package: com.fasterxml.jackson.core;version="[2.1.0,3.0.0)",
+ com.fasterxml.jackson.databind;version="[2.1.0,3.0.0)",
+ com.fasterxml.jackson.databind.node;version="[2.1.0,3.0.0)",
+ com.google.common.base;version="[13.0.1,13.0.1]",
+ com.google.common.collect;version="[13.0.1,13.0.1]",
+ org.slf4j;version="[1.6.4,1.6.4]"
+Import-Bundle: 
+ org.twitter4j.twitter4j-osgi;version="[3.0.3,3.0.3]"
